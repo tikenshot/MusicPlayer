@@ -1,5 +1,6 @@
 plugins {
     java
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = "net.tmkspace"
@@ -15,10 +16,41 @@ repositories {
         name = "sonatype"
         url = uri("https://oss.sonatype.org/content/groups/public/")
     }
+    maven {
+        name = "simplevoicechat-api"
+        url = uri("https://maven.maxhenkel.de/repository/public")
+    }
+    maven {
+        name = "scarsz"
+        url = uri("https://nexus.scarsz.me/content/groups/public/")
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+
+    // bStats dependency
+    implementation("org.bstats:bstats-bukkit:3.1.0")
+
+    // SimpleVoiceChat API
+    implementation("de.maxhenkel.voicechat:voicechat-api:2.5.27")
+
+    implementation("github.scarsz:configuralize:1.4.1") {
+        exclude(module = "json-simple")
+        exclude(module = "snakeyaml")
+    }
+}
+
+tasks {
+    // Task for starting paper server with plugin
+    runServer {
+        // Server version
+        minecraftVersion("1.21.5")
+
+        downloadPlugins {
+            modrinth("simple-voice-chat", "bukkit-2.5.29")
+        }
+    }
 }
 
 val targetJavaVersion = 21
