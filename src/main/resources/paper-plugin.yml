@@ -1,0 +1,7 @@
+name: MusicPlayer
+version: '1.0-SNAPSHOT'
+main: net.tmkspace.musicplayer.MusicPlayer
+api-version: '1.21'
+authors: [ tikenshot ]
+description: ""
+website: https://github.com/tikenshot/MusicPlayer
