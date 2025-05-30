@@ -5,3 +5,8 @@ api-version: '1.21'
 authors: [ tikenshot ]
 description: ""
 website: https://github.com/tikenshot/MusicPlayer
+dependencies:
+  server:
+    voicechat:
+      load: BEFORE
+      required: true
