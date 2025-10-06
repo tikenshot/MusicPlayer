@@ -10,3 +10,4 @@ dependencies:
     voicechat:
       load: BEFORE
       required: true
+      join-classpath: true

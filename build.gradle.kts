@@ -25,31 +25,45 @@ repositories {
         name = "scarsz"
         url = uri("https://nexus.scarsz.me/content/groups/public/")
     }
+    maven {
+        name = "jitpack"
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
 
     // bStats dependency
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // SimpleVoiceChat API
-    implementation("de.maxhenkel.voicechat:voicechat-api:2.5.27")
+    implementation("de.maxhenkel.voicechat:voicechat-api:2.6.0")
 
     implementation("github.scarsz:configuralize:1.4.1") {
         exclude(module = "json-simple")
         exclude(module = "snakeyaml")
     }
+
+    implementation("com.github.walkyst:lavaplayer-fork:1.4.3")
+
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.3.0")
+
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.42")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
 }
 
 tasks {
     // Task for starting paper server with plugin
     runServer {
         // Server version
-        minecraftVersion("1.21.5")
+        minecraftVersion("1.21.8")
 
         downloadPlugins {
-            modrinth("simple-voice-chat", "bukkit-2.5.29")
+            modrinth("simple-voice-chat", "bukkit-2.6.4")
         }
     }
 }
@@ -80,5 +94,11 @@ tasks.processResources {
     filteringCharset = "UTF-8"
     filesMatching("paper-plugin.yml") {
         expand(props)
+    }
+}
+
+tasks.shadowJar {
+    dependencies {
+        exclude(dependency("de.maxhenkel.voicechat:voicechat-api"))
     }
 }
